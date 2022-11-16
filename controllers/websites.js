@@ -7,11 +7,12 @@ export const createWebsite = async (req, res) => {
   const date = new Date().toLocaleString().match(/(.+), /)?.[1];
   const { website } = req.body;
   try {
-    const exist = await Website.findOne({ date });
+    const dateExist = await Website.findOne({ date });
 
-    if (exist) {
-      if (!exist.websites.includes(website)) {
-        console.log({ website });
+    if (dateExist) {
+      console.log("date exists");
+      const exist = await Website.findOne({ date, websites: { $in: [website] } });
+      if (!exist) {
         await Website.findOneAndUpdate(
           { date },
           {
@@ -19,6 +20,7 @@ export const createWebsite = async (req, res) => {
           }
         );
       } else {
+        console.log("data exists", { exist, website });
         res.send("already exist");
       }
     } else {
@@ -27,13 +29,13 @@ export const createWebsite = async (req, res) => {
       res.json("website added");
     }
 
-    //     if (!exist) {
-    //       const newWebsite = new Website(req.body);
-    //       await newWebsite.save();
-    //       res.status(200).send("already exists.");
-    //       return;
-    //     }
-    //     res.status(200).send("Website has been added.");
+    // if (!exist) {
+    //   const newWebsite = new Website(req.body);
+    //   await newWebsite.save();
+    //   res.status(200).send("already exists.");
+    //   return;
+    // }
+    // res.status(200).send("Website has been added.");
   } catch (err) {
     console.log(err);
   }

@@ -26,6 +26,10 @@ cron.schedule("* * * * *", () => {
 
 app.use("/websites", websiteRoute);
 
+app.get("/", (req, res) => {
+  res.send("access denied");
+});
+
 const connect = async () => {
   const CONNECTION_URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.zoihqmz.mongodb.net/?retryWrites=true&w=majority`;
   try {

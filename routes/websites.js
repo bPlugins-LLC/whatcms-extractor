@@ -15,7 +15,7 @@ router.delete("/:id", deleteWebsite);
 router.get("/find/:id", getWebsite);
 //GET ALL
 
-router.get("/", getWebsites);
+router.get("/:token", getWebsites);
 // router.get("/countByCity", countByCity);
 // router.get("/countByType", countByType);
 // router.get("/room/:id", get);

@@ -2,7 +2,11 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema(
   {
-    website: {
+    websites: {
+      type: [String],
+      required: true,
+    },
+    date: {
       type: String,
       required: true,
     },

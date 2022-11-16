@@ -15,13 +15,19 @@ app.use(cors());
 app.use(express.json());
 // app.use(cookieParser());
 
-cron.schedule("* * * * *", () => {
-  getWebsites().then((websites) => {
-    websites.map(async (website) => {
-      await axios.post("/websites", { website });
-    });
-  });
-});
+// cron.schedule("* * * * *", () => {
+//   getWebsites().then((websites) => {
+//     websites.map(async (website) => {
+//       await axios.post("/websites", { website });
+//     });
+//   });
+// });
+
+const test = async () => {
+  await axios.post("/websites", { website: "new website dd" });
+};
+
+test();
 
 app.use("/websites", websiteRoute);
 

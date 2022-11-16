@@ -1,15 +1,39 @@
 import Website from "../models/Websites.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const createWebsite = async (req, res) => {
+  const date = new Date().toLocaleString().match(/(.+), /)?.[1];
+  const { website } = req.body;
   try {
-    const exist = await Website.findOne({ website: req.body.website });
-    if (!exist) {
-      const newWebsite = new Website(req.body);
+    const exist = await Website.findOne({ date });
+
+    if (exist) {
+      if (!exist.websites.includes(website)) {
+        console.log({ website });
+        await Website.findOneAndUpdate(
+          { date },
+          {
+            $push: { websites: website },
+          }
+        );
+      } else {
+        res.send("already exist");
+      }
+    } else {
+      const newWebsite = new Website({ websites: [website], date });
       await newWebsite.save();
-      res.status(200).send("already exists.");
-      return;
+      res.json("website added");
     }
-    res.status(200).send("Website has been added.");
+
+    //     if (!exist) {
+    //       const newWebsite = new Website(req.body);
+    //       await newWebsite.save();
+    //       res.status(200).send("already exists.");
+    //       return;
+    //     }
+    //     res.status(200).send("Website has been added.");
   } catch (err) {
     console.log(err);
   }
@@ -40,10 +64,16 @@ export const getWebsite = async (req, res, next) => {
   }
 };
 export const getWebsites = async (req, res, next) => {
-  try {
-    const websites = await Website.find();
-    res.status(200).json(websites);
-  } catch (err) {
-    next(err);
+  const { token } = req.params;
+
+  if (token === process.env.JWT) {
+    try {
+      const websites = await Website.find();
+      res.status(200).json(websites);
+    } catch (err) {
+      console.log(err);
+    }
+    return;
   }
+  res.json("access denied");
 };

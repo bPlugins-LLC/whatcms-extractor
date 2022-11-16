@@ -4,7 +4,6 @@ import express from "express";
 import mongoose from "mongoose";
 import getWebsites from "./getWebsites.js";
 import websiteRoute from "./routes/websites.js";
-// import axios from "axios";
 import cors from "cors";
 
 import axios from "./axios.js";

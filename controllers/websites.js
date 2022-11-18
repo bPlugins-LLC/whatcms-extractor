@@ -11,7 +11,7 @@ export const createWebsite = async (req, res) => {
 
     if (dateExist) {
       console.log("date exists");
-      const exist = await Website.findOne({ date, websites: { $in: [website] } });
+      const exist = await Website.findOne({ websites: { $in: [website] } });
       if (!exist) {
         await Website.findOneAndUpdate(
           { date },

@@ -17,7 +17,13 @@ app.use(express.json());
 
 cron.schedule("* * * * *", () => {
   getWebsites().then(async (websites) => {
-    await axios.post("/websites", websites);
+    // res.json(websites);
+    websites.map((website, index) => {
+      setTimeout(async () => {
+        const { data } = await axios.post("/websites", website);
+        console.log(data, new Date().getSeconds());
+      }, 1000 * index);
+    });
   });
 });
 
@@ -26,14 +32,15 @@ cron.schedule("* * * * *", () => {
 // };
 
 // app.get("/test", (req, res) => {
-//   // const websites
 //   getWebsites().then(async (websites) => {
-//     console.log(websites);
-//     const { data } = await axios.post("/websites", websites);
-//     console.log(data);
-//     res.json(data);
+//     res.json(websites);
+//     websites.map((website, index) => {
+//       setTimeout(async () => {
+//         const { data } = await axios.post("/websites", website);
+//         console.log(data, new Date().getSeconds());
+//       }, 1000 * index);
+//     });
 //   });
-//   // res.send("working fine");
 // });
 
 // test();

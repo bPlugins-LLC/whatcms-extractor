@@ -11,33 +11,34 @@ import Shopify from "../models/Shopify.js";
 dotenv.config();
 
 export const createWebsite = async (req, res) => {
-  const websites = req.body;
+  const { website, category } = req.body;
   try {
     const done = [];
-    await websites.map(({ category, website }) => {
-      setTimeout(async () => {
-        if (category === "woocommerce") {
-          addWebsite(Woocommerce, website);
-        } else if (category === "prestashop") {
-          addWebsite(PrestaShop, website);
-        } else if (category === "magento") {
-          addWebsite(Magento, website);
-        } else if (category === "elementor") {
-          addWebsite(Elementor, website);
-        } else if (category === "joomla") {
-          addWebsite(Joomla, website);
-        } else if (category === "wordpress") {
-          addWebsite(WordPress, website);
-        } else if (category === "shopify") {
-          addWebsite(Shopify, website);
-        } else {
-          addWebsite(Website, website);
-        }
-      }, 100);
-      done.push({ category, website });
-    });
-    console.log(done);
-    return res.json(done);
+    // await websites.map(({ category, website }) => {
+    //   setTimeout(async () => {}, 100);
+
+    //   done.push({ category, website });
+    // });
+
+    if (category === "woocommerce") {
+      addWebsite(Woocommerce, website);
+    } else if (category === "prestashop") {
+      addWebsite(PrestaShop, website);
+    } else if (category === "magento") {
+      addWebsite(Magento, website);
+    } else if (category === "elementor") {
+      addWebsite(Elementor, website);
+    } else if (category === "joomla") {
+      addWebsite(Joomla, website);
+    } else if (category === "wordpress") {
+      addWebsite(WordPress, website);
+    } else if (category === "shopify") {
+      addWebsite(Shopify, website);
+    } else {
+      addWebsite(Website, website);
+    }
+    // console.log(done);
+    return res.json({ website, category });
   } catch (error) {
     console.log(error.message);
   }

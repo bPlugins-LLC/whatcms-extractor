@@ -12,8 +12,6 @@ dotenv.config();
 
 export const createWebsite = async (req, res) => {
   const websites = req.body;
-  // return res.json(websites);
-
   try {
     const done = [];
     await websites.map(({ category, website }) => {
@@ -38,36 +36,11 @@ export const createWebsite = async (req, res) => {
       }, 100);
       done.push({ category, website });
     });
+    console.log(done);
     return res.json(done);
   } catch (error) {
     console.log(error.message);
   }
-
-  // try {
-  //   const dateExist = await Website.findOne({ date });
-
-  //   if (dateExist) {
-  //     console.log("date exists");
-  //     const exist = await Website.findOne({ websites: { $in: [website] } });
-  //     if (!exist) {
-  //       await Website.findOneAndUpdate(
-  //         { date },
-  //         {
-  //           $push: { websites: website },
-  //         }
-  //       );
-  //     } else {
-  //       console.log("data exists", { exist, website });
-  //       res.send("already exist");
-  //     }
-  //   } else {
-  //     const newWebsite = new Website({ websites: [website], date });
-  //     await newWebsite.save();
-  //     res.json("website added");
-  //   }
-  // } catch (err) {
-  //   console.log(err);
-  // }
 };
 
 export const addWebsite = async (Model, website) => {
@@ -82,14 +55,10 @@ export const addWebsite = async (Model, website) => {
           $push: { websites: website },
         }
       );
-    } else {
-      console.log("data exists", { exist, website });
-      return "already exist";
     }
   } else {
     const newWebsite = new Model({ websites: [website], date });
     await newWebsite.save();
-    return "website added";
   }
 };
 

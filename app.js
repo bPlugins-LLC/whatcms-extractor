@@ -15,29 +15,26 @@ app.use(cors());
 app.use(express.json());
 // app.use(cookieParser());
 
-// cron.schedule("* * * * *", () => {
-//   getWebsites().then(async (websites) => {
-//     await axios.post("/websites", websites);
-//     // websites.map(async (websites) => {
-//     //   await axios.post("/websites", { website });
-//     // });
-//   });
-// });
+cron.schedule("* * * * *", () => {
+  getWebsites().then(async (websites) => {
+    await axios.post("/websites", websites);
+  });
+});
 
 // const test = async () => {
 //   await axios.post("/websites", { website: "udpatedsdfs " });
 // };
 
-app.get("/test", (req, res) => {
-  // const websites
-  getWebsites().then(async (websites) => {
-    console.log(websites);
-    const { data } = await axios.post("/websites", websites);
-    console.log(data);
-    res.json(data);
-  });
-  // res.send("working fine");
-});
+// app.get("/test", (req, res) => {
+//   // const websites
+//   getWebsites().then(async (websites) => {
+//     console.log(websites);
+//     const { data } = await axios.post("/websites", websites);
+//     console.log(data);
+//     res.json(data);
+//   });
+//   // res.send("working fine");
+// });
 
 // test();
 

@@ -18,5 +18,5 @@ const Schema = mongoose.Schema(
   { timestamps: true }
 );
 
-const Websites = mongoose.model("websites", Schema);
-export default Websites;
+const WordPress = mongoose.model("wordpress", Schema);
+export default WordPress;

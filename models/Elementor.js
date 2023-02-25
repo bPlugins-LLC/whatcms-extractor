@@ -18,5 +18,5 @@ const Schema = mongoose.Schema(
   { timestamps: true }
 );
 
-const Websites = mongoose.model("websites", Schema);
-export default Websites;
+const Elementor = mongoose.model("elementor", Schema);
+export default Elementor;

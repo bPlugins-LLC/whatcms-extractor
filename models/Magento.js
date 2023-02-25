@@ -18,5 +18,5 @@ const Schema = mongoose.Schema(
   { timestamps: true }
 );
 
-const Websites = mongoose.model("websites", Schema);
-export default Websites;
+const Magento = mongoose.model("magento", Schema);
+export default Magento;

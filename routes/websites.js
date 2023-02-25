@@ -1,5 +1,5 @@
 import express from "express";
-import { createWebsite, deleteWebsite, getWebsite, getWebsites, updateWebsite } from "../controllers/websites.js";
+import { createWebsite, deleteWebsite, getWebsite, getWebsites, getWebsitesByType, updateWebsite } from "../controllers/websites.js";
 
 const router = express.Router();
 
@@ -15,7 +15,8 @@ router.delete("/:id", deleteWebsite);
 router.get("/find/:id", getWebsite);
 //GET ALL
 
-router.get("/:token", getWebsites);
+// router.get("/:token", getWebsites);
+router.post("/:token/:type", getWebsitesByType);
 // router.get("/countByCity", countByCity);
 // router.get("/countByType", countByType);
 // router.get("/room/:id", get);
